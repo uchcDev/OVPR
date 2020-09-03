@@ -1,0 +1,39 @@
+
+
+<ng-template #myTemplate let-node="node">
+
+      
+    <div #theMainDIV [ngStyle]="node.GetWindowStyle()">     
+        <mainDIV-wrapper   [node]="node" [_mainDIV]="theMainDIV"  ></mainDIV-wrapper>
+
+        <div *ngIf="node.Children.length == 0" style="width:inherit; height: inherit;">           
+            
+                <div [ngStyle]="node.GetHeaderStyle()" style="background-color :cornflowerblue;" >                              
+                  
+                
+                  <button (click)="node.CloseButtonClicked()" [style.display]="node.HideCloseButtonCheck()? 'none': '' "  type="button">X</button> 
+                  
+                  {{node.NodeDisplayName}}      
+                 
+                 </div> 
+                <div [ngStyle]="node.GetContentStyle()">
+                        <app-tree-node-wrapper style="width:inherit;  height: inherit;" [node]="node"></app-tree-node-wrapper>
+                </div>
+        </div>
+        <div *ngIf="node.Children.length > 0">        
+
+            <ng-template ngFor let-child [ngForOf]="node.Children">
+                <ng-template [ngTemplateOutlet]="myTemplate" [ngTemplateOutletContext]="{ node: child }">
+                </ng-template>
+            </ng-template>
+
+        </div>
+
+    </div>
+
+</ng-template>
+
+<div  (mousedown)="mouseDown($event)" [style.cursor]="cursorType"  ondragstart="return false">
+    <ng-template [ngTemplateOutlet]="myTemplate" [ngTemplateOutletContext]="{ node: tree.rootNode}" >
+    </ng-template>
+</div>

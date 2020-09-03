@@ -1,0 +1,151 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.myfont
+{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;  
+
+    font-size: 14px;   
+}
+
+.grid 
+{
+  
+    border: 1px solid black; 
+    border-collapse: collapse;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;  
+    font-size: 14px;   
+    width: 100%;
+   
+
+  
+}
+.grid tr:first-child
+{
+    font-weight: bold;
+}
+
+
+.grid  tr {  background-color: rgb(255, 255, 255) ; padding: 0;}
+.grid tr:nth-child(even){background-color: #ddd}
+.grid tr:hover {background-color:  #8a8e94;}
+
+.grid td
+{
+    border: 1px solid black; 
+    border-spacing: 1px;
+    padding: 0;
+   
+    
+} 
+
+  
+
+.form
+{
+  
+    border: 1px solid black; 
+    border-collapse: collapse;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+
+   
+
+    font-size: 14px;   
+    width: 100%
+}
+.form td
+{
+    border: 1px solid black; 
+    padding: 1px;
+    
+}
+
+.form td:first-child
+{
+    width: 1%;
+    text-align: right;
+    white-space: nowrap;
+
+}
+
+.form  tr { background-color: rgb(255, 255, 255)}
+.form  tr:nth-child(even){background-color: #ddd}
+
+
+.matTableGrid
+{
+  
+    border: 1px solid black; 
+    border-collapse: collapse;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;     
+    width: 100%
+}
+.matTableGrid th
+{
+    font-weight: bolder;
+    
+    color: black;
+    border: 1px solid black; 
+    text-align: left;
+    font-size: 13px;
+    
+}
+tr.matTableGridHeader.mat-header-row
+{
+    height: 10px;    
+    white-space: nowrap;
+    font-weight: bolder;
+   
+}
+
+.matTableGrid tr:nth-child(even){background-color: #ddd}
+
+.matTableGrid tr:hover {background-color:  #8a8e94;}
+
+
+.matTableGrid td
+{
+    border: 1px solid black; 
+    padding: 1px; 
+    
+
+    white-space: nowrap;
+} 
+table tr.mat-row
+{
+    height: 10px;   
+}
+ 
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 15px;
+    height: 15px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .buttonLooksLikesLink {
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+  }

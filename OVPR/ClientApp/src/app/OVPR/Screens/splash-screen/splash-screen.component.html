@@ -1,0 +1,54 @@
+<table>
+  <tr>
+    <td style="vertical-align: top">
+            OVPR
+            <br />
+            {{GetCountdownDisplay()}}
+           <br />
+           <button class="buttonLooksLikesLink" (click)="logOut()">log out</button>
+      <br />
+      <br />
+      <table style="width: 1%">
+        <tr>
+          <td style="vertical-align: text-top">
+            <div cdkDropList id="a" #a="cdkDropList" [cdkDropListConnectedTo]="['winA', 'winB', 'winC', 'winD', 'winE', 'winF', 'winG', 'winH']"
+              (cdkDropListDropped)="dropa($event)">
+              <div cdkDrag [cdkDragData]="'add'" style="cursor: move" matTooltip="drag me">Add Commitment</div>
+              <br />
+              <div cdkDrag [cdkDragData]="'edit'" style="cursor: move" matTooltip="drag me">Edit Commitment</div>
+              <br />
+              <div cdkDrag [cdkDragData]="'users'" style="cursor: move" matTooltip="drag me">Maintain Users</div>
+              <br />
+              <div cdkDrag [cdkDragData]="'types'" style="cursor: move" matTooltip="drag me">Maintain Types</div>
+
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table>
+        <tr>
+          <td style="vertical-align: text-top">
+
+            <table>
+              <tr style=" width: 100%">
+
+                <td (click)="topClick(item)" style="width:10%; cursor:default"
+                  *ngFor="let item of topMenu">
+                  {{item.Text}}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="border-left: 1px solid black" >
+              
+            <app-win #windows></app-win>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

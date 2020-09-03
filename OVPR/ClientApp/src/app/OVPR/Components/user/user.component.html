@@ -1,0 +1,119 @@
+
+Is active
+<input #cb type="checkbox" [(ngModel)]="activeFilter" (change)="filter()" />
+<table class="grid">
+  <tr>
+    <td>
+      ID
+    </td>
+    <td>
+      First Name
+    </td>
+    <td>
+      MI
+    </td>
+    <td>
+      Last Name
+    </td>
+    <td>
+      Email
+    </td>
+    <td>
+      Role
+    </td>
+    <td>
+      Active
+    </td>
+    <td>
+      Edit
+    </td>
+  <tr *ngFor="let ent of users">
+    <td>
+      {{ent.USER_PK_ID}}
+    </td>
+    <td [ngSwitch]="userToEdit">
+      <div *ngSwitchCase="ent">
+        <input [(ngModel)]="copyOfUserToEdit.USER_FirstName" style="width:90%" />
+        <span style="color:red">
+          {{propertyErrorMessages['USER_FirstName']}}
+        </span>
+      </div>
+      <div *ngSwitchDefault>
+        {{ent.USER_FirstName}}
+      </div>
+    </td>
+    <td [ngSwitch]="userToEdit">
+      <div *ngSwitchCase="ent">
+        <input [(ngModel)]="copyOfUserToEdit.USER_MI" style="width:90%" />
+      </div>
+      <div *ngSwitchDefault>
+        {{ent.USER_MI}}
+      </div>
+    </td>
+    <td [ngSwitch]="userToEdit">
+      <div *ngSwitchCase="ent">
+        <input [(ngModel)]="copyOfUserToEdit.USER_LastName" style="width:90%" />
+        <span style="color:red">
+          {{propertyErrorMessages['USER_LastName']}}
+        </span>
+      </div>
+      <div *ngSwitchDefault>
+        {{ent.USER_LastName}}
+      </div>
+    </td>
+    <td [ngSwitch]="userToEdit">
+      <div *ngSwitchCase="ent">
+        <input [(ngModel)]="copyOfUserToEdit.USER_EmailAddress" style="width:90%" />
+        <span style="color:red">
+          {{propertyErrorMessages['USER_EmailAddress']}}
+        </span>
+      </div>
+      <div *ngSwitchDefault>
+        {{ent.USER_EmailAddress}}
+      </div>
+    </td>
+    <td [ngSwitch]="userToEdit">
+      <div *ngSwitchCase="ent">
+        <select [(ngModel)]="copyOfUserToEdit.ROLE_PK_ID">
+          <option value=""> (select 1)</option>
+          <option *ngFor="let ent of roles" value={{ent.ROLE_PK_ID}}> {{ent.ROLE_Name}}
+          </option>
+        </select>
+        <span style="color:red">
+          {{propertyErrorMessages['ROLE_PK_ID']}}
+        </span>
+      </div>
+      <div *ngSwitchDefault>
+        {{ent.ROLE_Name}}
+      </div>
+    </td>
+    <td [ngSwitch]="userToEdit">
+      <div *ngSwitchCase="ent">
+
+        <div *ngIf="ent.USER_PK_ID != -1">
+          <input type="checkbox" [(ngModel)]="copyOfUserToEdit.USER_IsActive" />
+        </div>
+
+
+      </div>
+      <div *ngSwitchDefault>
+        {{ent.USER_IsActive}}
+      </div>
+    </td>
+
+    <td [ngSwitch]="userToEdit">
+      <div *ngSwitchCase="ent">
+        <input type="submit" value="cancel" (click)="cancel()">
+        <input type="submit" value="save" (click)="save()">
+      </div>
+      <div *ngSwitchDefault>
+        <input type="submit" value="edit" (click)="edit(ent, true)">
+      </div>
+    </td>
+
+  </tr>
+</table>
+<br />
+<div *ngIf="userToEdit == null">
+<input type="submit" value="add" (click)="addInit()">
+</div>

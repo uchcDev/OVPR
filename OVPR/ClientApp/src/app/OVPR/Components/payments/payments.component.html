@@ -1,0 +1,283 @@
+<b>Commitment {{commitmentPK}}</b>
+
+
+<div [style.display]="!allowEdit ? '': 'none' " style="color:red; font-weight: bolder">
+
+  <br />
+  Only awarded commitments can have payments
+  <br />
+</div>
+
+<div [style.display]="allowEdit ? '': 'none' ">
+
+  <table class="form" style="width:700px ;">
+    <tr>
+      <td style="text-align: left;">
+        Status:
+      </td>
+      <td>
+        FY:
+      </td>
+      <td>
+        Payment#: 
+      </td>
+      <td>
+        Payment Comment:
+      </td>
+
+
+    </tr>
+    <tr>
+      <td>
+        <select [(ngModel)]="paymentEdit.PayStatusDesc">
+          <option value=""> (Select one)</option>
+          <option *ngFor="let ent of statuses" value={{ent.PAYMENTSTATUS_Description}}>
+            {{ent.PAYMENTSTATUS_Description}}
+          </option>
+        </select>
+        <span style="color:red" *ngIf="controlPropertyList['status'] != null">
+          {{controlPropertyList["status"]}}
+        </span>
+      </td>
+      <td>
+        <input [(ngModel)]="paymentEdit.FY" style="width: 60px">
+        <span style="color:red" *ngIf="controlPropertyList['fy'] != null">
+          {{controlPropertyList["fy"]}}
+        </span>
+      </td>
+      <td>
+        <input [(ngModel)]="paymentEdit.PaymentNo" style="width: 60px">
+      </td>
+      <td>
+        <textarea [(ngModel)]="paymentEdit.PaymentComment" style="width: 300px"></textarea>
+
+        <span style="color:red" *ngIf="controlPropertyList['paymentComment'] != null">
+          {{controlPropertyList["paymentComment"]}}
+        </span>
+
+
+    </tr>
+  </table>
+
+
+
+</div>
+<div style="padding: 5px;"></div>
+<table class="myfont" [style.display]="allowEdit ? '': 'none' ">
+
+
+
+
+
+
+
+  <tr [style.display]="paymentEdit.PayStatusDesc == 'Pending' ? '': 'none' ">
+    <td>
+      Due Date:
+    </td>
+    <td>
+      <input matInput [matDatepicker]="dueDatePicker" placeholder="" [(ngModel)]="paymentEdit.DueDate">
+      <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #dueDatePicker></mat-datepicker>
+
+      <span style="color:red" *ngIf="controlPropertyList['dueDate'] != null">
+        {{controlPropertyList["dueDate"]}}
+      </span>
+    </td>
+  </tr>
+  <tr [style.display]="paymentEdit.PayStatusDesc == 'Pending' ? '': 'none' ">
+    <td>
+      Amount Due:
+    </td>
+    <td>
+      <input [(ngModel)]="paymentEdit.AmountDue" style="width: 80px">
+      <span style="color:red" *ngIf="controlPropertyList['amountDue'] != null">
+        {{controlPropertyList["amountDue"]}}
+      </span>
+    </td>
+  </tr>
+  <tr [style.display]="paymentEdit.PayStatusDesc == 'Not Funded' ? '': 'none' ">
+    <td>
+      Amount Not Funded:
+    </td>
+    <td>
+      <input [(ngModel)]="paymentEdit.AmountNotFunded" style="width:  80px">
+      <span style="color:red" *ngIf="controlPropertyList['amountNotFunded'] != null">
+        {{controlPropertyList["amountNotFunded"]}}
+      </span>
+    </td>
+  </tr>
+  <tr [style.display]="paymentEdit.PayStatusDesc == 'Not Funded' ? '': 'none' ">
+    <td>
+      Reason:
+    </td>
+    <td>
+      <input [(ngModel)]="paymentEdit.NotFundedReason" style="width:  80px">
+      <span style="color:red" *ngIf="controlPropertyList['notFundedReason'] != null">
+        {{controlPropertyList["notFundedReason"]}}
+      </span>
+    </td>
+  </tr>
+</table>
+
+<table class="form" [style.display]="paymentEdit.PayStatusDesc == 'Completed' ? '': 'none' " style="width: 80%">
+
+  <tr>
+    <td style="text-align: left;">
+      Date Paid
+    </td>
+    <td>
+      Transaction#
+    </td>
+    <td>
+      From Account
+    </td>
+    <td>
+      To Account
+    </td>
+    <td>
+      Amount Paid
+    </td>
+
+  </tr>
+  <tr>
+    <td>
+      <input matInput [matDatepicker]="datePaidPicker" placeholder="" [(ngModel)]="paymentEdit.DatePaid">
+      <mat-datepicker-toggle matSuffix [for]="datePaidPicker"></mat-datepicker-toggle>
+      <mat-datepicker #datePaidPicker></mat-datepicker>
+      <span style="color:red" *ngIf="controlPropertyList['datePaid'] != null">
+        {{controlPropertyList["datePaid"]}}
+      </span>
+    </td>
+    <td>
+      <input [(ngModel)]="paymentEdit.TransactionNumber" style="width:  80px">
+      <span style="color:red" *ngIf="controlPropertyList['transactionNumber'] != null">
+        {{controlPropertyList["transactionNumber"]}}
+      </span>
+    </td>
+    <td>
+      <input [(ngModel)]="paymentEdit.FromAccount" style="width:  80px">
+      <span style="color:red" *ngIf="controlPropertyList['fromAccount'] != null">
+        {{controlPropertyList["fromAccount"]}}
+      </span>
+    </td>
+    <td>
+      <input [(ngModel)]="paymentEdit.ToAccount" style="width:  80px">
+      <span style="color:red" *ngIf="controlPropertyList['toAccount'] != null">
+        {{controlPropertyList["toAccount"]}}
+      </span>
+    </td>
+    <td>
+      <input [(ngModel)]="paymentEdit.AmountPaid" style="width:  80px">
+      <span style="color:red" *ngIf="controlPropertyList['amountPaid'] != null">
+        {{controlPropertyList["amountPaid"]}}
+      </span>
+    </td>
+
+  </tr>
+
+</table>
+<div style="padding: 5px;"></div>
+<div [style.display]="allowEdit ? '': 'none' ">
+
+
+
+  <input type="submit" (click)="gotoSaveView()" value="Add New Payment"
+    [style.display]="view_AddPreviewElseSave ? '': 'none' ">
+
+
+  <input type="submit" (click)="savePayment()" [value]="action_addElseUpdate? 'add' : 'update' "
+    [style.display]="!view_AddPreviewElseSave ? '': 'none' ">
+  <input type="submit" (click)="cancel()" value="Cancel" [style.display]="!view_AddPreviewElseSave ? '': 'none' ">
+
+
+</div>
+
+
+<table class="grid">
+  <tr style="height: 10px;">
+    <td style="width: 1%">
+      #
+    </td>
+    <td style="width: 1%">
+      Status
+    </td>
+    <td style="width: 1%">
+      FY
+    </td>
+    <td style="width: 1%">
+      Comment
+    </td>
+    <td style="width: 1%">
+      Due Date
+    </td>
+    <td style="width: 1%">
+      Date Paid
+    </td>
+    <td style="width: 1%">
+      From Account
+    </td>
+    <td style="width: 1%">
+      To Account
+    </td>
+    <td style="width: 1%">
+      Trans#
+    </td>
+    <td style="width: 1%">
+      Amount Due
+    </td>
+    <td style="width: 1%">
+      Not Funded
+    </td>
+    <td style="width: 1%">
+      Amount Paid
+    </td>
+    <td style="width: 1%">
+    </td>
+  </tr>
+  <tr *ngFor="let ent of paymentEnts ; let i = index;" (click)="editPayment(ent)">
+    <td>
+      {{ent.PaymentNo}}
+    </td>
+    <td>
+      {{ent.PayStatusDesc}}
+    </td>
+    <td>
+      {{ent.FY}}
+    </td>
+    <td matTooltip="{{ent.Comment}}">
+      {{ ent.Comment.substring(0, 10)}}
+    </td>
+    <td style="white-space: nowrap">
+      {{ent.DueDate | date: 'MM/dd/yyyy'}}
+    </td>
+    <td style="white-space: nowrap">
+      {{ent.DatePaid | date: 'MM/dd/yyyy'}}
+    </td>
+    <td>
+      {{ent.FromAccount}}
+    </td>
+    <td>
+      {{ent.ToAccount}}
+    </td>
+    <td>
+      {{ent.TransactionNumber}}
+    </td>
+    <td style="text-align: right;">
+      {{ent.AmountDue | number : '.2'  }}
+    </td>
+    <td style="text-align: right;">
+      {{ent.AmountNotFunded | number : '.2'  }}
+    </td>
+    <td style="text-align: right;">
+      {{ent.AmountPaid | number  : '.2'  }}
+    </td>
+    <td>
+      <div [style.display]="allowEdit ? '': 'none' ">
+
+
+        <input type="submit" (click)="delRow(ent)" value="x">
+      </div>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,21 @@
+.thisTable  
+{
+background-color:transparent; 
+padding: 0px;
+border-collapse: collapse;
+
+}
+.thisTable  tr
+{
+background-color:transparent; 
+padding: 0px;
+}
+
+ 
+.thisTable  td
+{
+background-color:transparent; 
+padding: 0px;
+vertical-align: top;
+border-width: 0px;
+}

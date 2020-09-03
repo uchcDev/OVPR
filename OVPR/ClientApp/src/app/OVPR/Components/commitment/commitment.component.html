@@ -1,0 +1,355 @@
+<b>Commitment {{commitPK}}</b>
+<table>
+  <tr>
+    <td style="vertical-align: top;">
+      <table class="form" style="width:700px">
+        <tr>
+          <td style="width: 1%;text-align: left;">
+            Campus
+          </td>
+          <td style="width: 1%;text-align: left;">
+            Type
+          </td>
+          <td style="width: 1%;text-align: left;">
+            School
+          </td>
+          <td style="width: 1%;text-align: left;">
+            Dept
+          </td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">
+            <select (change)="campusChanging()" [(ngModel)]="campus_Selected_CAMPUS_PK_ID">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of campusEnts" value={{ent.CAMPUS_PK_ID}}> {{ent.CAMPUS_Name}}</option>
+            </select>
+            <span style="color:red" *ngIf="controlPropertyList['campus'].ShowValidationMessage">
+              {{controlPropertyList["campus"].ValidationMessage}}
+            </span>
+          </td>
+          <td>
+            <select (change)="typeChanging()" [(ngModel)]="type_Selected_COMMITTYPE_PK_ID" style="width: 150px;">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of typeEnts" value={{ent.COMMITTYPE_PK_ID}}> {{ent.COMMITTYPE_Description}}
+              </option>
+            </select>
+            <span style="color:red" *ngIf="controlPropertyList['type'].ShowValidationMessage">
+              {{controlPropertyList["type"].ValidationMessage}}
+            </span>
+          </td>
+          <td>
+            <select (change)="schoolChanging()" [(ngModel)]="school_Selected_SCHOOL_PK_ID">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of schoolEnts" value={{ent.SCHOOL_PK_ID}}> {{ent.SCHOOL_Name}}</option>
+            </select>
+            <span style="color:red" *ngIf="controlPropertyList['school'].ShowValidationMessage">
+              {{controlPropertyList["school"].ValidationMessage}}
+            </span>
+          </td>
+          <td>
+            <select (change)="deptChanging()" [(ngModel)]="dept_Selected_DEPT_PK_ID">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of deptEnts" value={{ent.DEPT_PK_ID}}> {{ent.DEPT_Name}}</option>
+            </select>
+            <span style="color:red" *ngIf="controlPropertyList['dept'].ShowValidationMessage">
+              {{controlPropertyList["dept"].ValidationMessage}}
+            </span>
+          </td>
+        </tr>
+
+      </table>
+
+
+
+      <table class="myfont" [style.display]="(ShowNonInfoEdControls)? '': 'none' " style="width: 1%;">
+        <tr>
+          <td>
+            PI:
+          </td>
+
+          <td>
+            <input #comPISearchBox [(ngModel)]="searchPIString" (keyup)="searchPI()" (change)="searchPI()"
+              placeholder="filter">
+          </td>
+          <td>
+            :
+          </td>
+          <td>
+            <select (change)="piChanging()" [(ngModel)]="pi_Selected_PI_PK_ID" size="1">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of piData.Data" value={{ent.PI_PK_ID}}> {{ent.PI_DisplayName}} </option>
+
+            </select>
+          </td>
+          <td>
+            <span style="color:green; font-size:small" *ngIf="piData.WasDataTruncated" matTooltip="Showing first 500">
+              ?
+            </span>
+          </td>
+          <td>
+            <span style="color:red" *ngIf="controlPropertyList['pi'].ShowValidationMessage">
+              {{controlPropertyList["pi"].ValidationMessage}}
+            </span>
+          </td>
+        </tr>
+
+      </table>
+
+
+
+
+      <table class="myfont" [style.display]="(ShowInfoEdControls)? '': 'none' " style="width: 1%;">
+        <tr>
+          <td>
+            InfoEdID#:
+          </td>
+          <td>
+            <input [(ngModel)]="searchProposalString" (keyup)="searchProposal()" (change)="searchProposal()"
+              placeholder="filter">
+          </td>
+          <td>
+            :
+          </td>
+          <td>
+            <select (change)="infoEdIDChanging()" [(ngModel)]="infoEdID_Selected_PROP_PK_ID">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of infoEdData.Data" value={{ent.PROP_PK_ID}}>
+                {{ent.PROPPROP_ProposalNumber}}
+              </option>
+            </select>
+          </td>
+          <td>
+            <span style="color:green; font-size:small" *ngIf="infoEdData.WasDataTruncated"
+              matTooltip="Showing first 500">
+              ?
+            </span>
+          </td>
+          <td>
+            <span style="color:red" *ngIf="controlPropertyList['infoEd'].ShowValidationMessage">
+              {{controlPropertyList["infoEd"].ValidationMessage}}
+            </span>
+          </td>
+        </tr>
+
+      </table>
+
+      <table class="form" style="width:700px">
+        <tr>
+          <td style="width: 1%;text-align: left;">
+            Date
+          </td>
+
+          <td style="width: 1%;text-align: left;">
+            Starting FY
+          </td>
+
+          <td style="width: 1%;text-align: left;">
+            # of Years
+          </td>
+
+          <td style="width: 1%;text-align: left;">
+            Commitment $
+          </td>
+          <td style="width: 1%;text-align: left;">
+            Status
+          </td>
+
+
+        </tr>
+        <tr>
+          <td>
+            <input matInput [matDatepicker]="singlDueDatePicker" placeholder="" [formControl]="singleDueDate"
+              style="width: 80px;">
+            <mat-datepicker-toggle matSuffix [for]="singlDueDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #singlDueDatePicker></mat-datepicker>
+            <span style="color:red" *ngIf="controlPropertyList['date'].ShowValidationMessage">
+              {{controlPropertyList["date"].ValidationMessage}}
+            </span>
+          </td>
+
+          <td>
+            <input [(ngModel)]="startingFY" style="width: 50px;">
+            <br />
+            <span style="color:red" *ngIf="controlPropertyList['startFY'].ShowValidationMessage">
+              {{controlPropertyList["startFY"].ValidationMessage}}
+            </span>
+          </td>
+
+          <td>
+            <input [(ngModel)]="numYears" style="width: 30px;">
+            <br />
+            <span style="color:red" *ngIf="controlPropertyList['numYears'].ShowValidationMessage">
+              {{controlPropertyList["numYears"].ValidationMessage}}
+            </span>
+          </td>
+
+          <td>
+            <input [(ngModel)]="commitmentMoney"   style="width: 100px; ">
+          
+            <br />
+            <span style="color:red" *ngIf="controlPropertyList['commitMoney'].ShowValidationMessage">
+              {{controlPropertyList["commitMoney"].ValidationMessage}}
+            </span>
+          </td>
+
+
+          <td>
+            <select #statusDDL (change)="statusChange()" [(ngModel)]="status_Selected_PAYMENTSTATUS_PK_ID">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of statusEnts" value={{ent.COMMITSTATUS_PK_ID}}>
+                {{ent.COMMITSTATUS_Description}}
+              </option>
+            </select>
+            <span style="color:red" *ngIf="controlPropertyList['status'].ShowValidationMessage">
+              {{controlPropertyList["status"].ValidationMessage}}
+            </span>
+          </td>
+
+        </tr>
+      </table>
+      <div style="padding: 5px;"></div>
+      <table class="form" style="width:700px;">
+        <tr>
+          <td style="width: 50%;text-align: left;">
+            Commit Name
+          </td>
+          <td>
+            Detail
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <textarea [(ngModel)]="commitmentName" maxlength="255" maxlength="256"
+              style="width: 98%;height:50px"></textarea>
+            <span style="color:red" *ngIf="controlPropertyList['commitName'].ShowValidationMessage">
+              {{controlPropertyList["commitName"].ValidationMessage}}
+            </span>
+          </td>
+          <td>
+            <textarea [(ngModel)]="commitmentDetail" spellcheck="true" row="10" maxlength="256" cols="50"
+              style=" height:50px"></textarea>
+          </td>
+        </tr>
+      </table>
+      <div [style.display]="(ShowInfoEdControls)? '': 'none' ">
+        <b>Proposal Correction</b>
+      </div>
+
+      <table class="form" [style.display]="(ShowInfoEdControls)? '': 'none' " style="width:700px;">
+
+        <tr>
+          <td style="text-align: left;">
+            School
+          </td>
+          <td>
+            Dept
+          </td>
+          <td>
+            PI
+          </td>
+          <td>
+            Sponsor
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <select (change)="comSchoolChanging()" [(ngModel)]="comSchool_Selected_SCHOOL_PK_ID" style="width: 150px;">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of comSchoolEnts" value={{ent.SCHOOL_PK_ID}}> {{ent.SCHOOL_Name}}</option>
+            </select>
+            <span style="color:red" *ngIf="controlPropertyList['comSchool'].ShowValidationMessage">
+              {{controlPropertyList["comSchool"].ValidationMessage}}
+            </span>
+          </td>
+          <td>
+            <select (change)="comDeptChanging()" [(ngModel)]="comDept_Selected_DEPT_PK_ID" style="width: 150px;">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of comDeptEnts" value={{ent.DEPT_PK_ID}}> {{ent.DEPT_Name}}</option>
+            </select>
+            <span style="color:red" *ngIf="controlPropertyList['comDept'].ShowValidationMessage">
+              {{controlPropertyList["comDept"].ValidationMessage}}
+            </span>
+          </td>
+          <td>
+            <input #comPISearchBox [(ngModel)]="searchComPIString" (keyup)="searchComPI(comPISearchBox.value)"
+              (change)="searchComPI(comPISearchBox.value)" placeholder="filter" style="width: 150px;">
+
+
+            <span style="color:green; font-size:small" *ngIf="comPIData.WasDataTruncated"
+              matTooltip="Showing first 500">
+              ?
+            </span>
+
+
+            <br />
+            <select (change)="comPIChanging()" [(ngModel)]="comPI_Selected_PI_PK_ID" size="1" style="width: 150px;">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of comPIData.Data" value={{ent.PI_PK_ID}}> {{ent.PI_DisplayName}}</option>
+            </select>
+            <span style="color:red" *ngIf="controlPropertyList['comPI'].ShowValidationMessage">
+              {{controlPropertyList["comPI"].ValidationMessage}}
+            </span>
+          </td>
+          <td>
+            <input #comSponserSearchBox [(ngModel)]="searchComSponserString"
+              (keyup)="searchComSponser(comSponserSearchBox.value)"
+              (change)="searchComSponser(comSponserSearchBox.value)" placeholder="filter" style="width: 150px;">
+
+
+            <span style="color:green; font-size:small" *ngIf="comSponserData.WasDataTruncated"
+              matTooltip="Showing first 500">
+              ?
+            </span>
+
+            <br />
+
+
+            <select (change)="comSponserChanging()" [(ngModel)]="comSponser_Selected_SPONSOR_PK_ID"
+              style="width: 150px;">
+              <option value="-1"> (Select one)</option>
+              <option *ngFor="let ent of comSponserData.Data" value={{ent.SPONSOR_PK_ID}}> {{ent.SPONSOR_Name}}
+              </option>
+            </select>
+            <span style="color:red" *ngIf="controlPropertyList['sponsor'].ShowValidationMessage">
+              {{controlPropertyList["sponsor"].ValidationMessage}}
+            </span>
+
+          </td>
+        </tr>
+      </table>
+      <table style="width: 100%;">
+        <tr>
+          <td>
+            File Upload <br />
+
+            <app-file-upload #fileUpload> </app-file-upload>
+          </td>
+
+          <td style="width: 50%; text-align: center; ">
+            <div *ngIf="!isInSaveMode; else elseBlock">
+              <input type="submit" (click)="cancel()" value="cancel">
+              <input type="submit" (click)="submitData()" value="submit">
+            </div>
+
+            <ng-template #elseBlock>
+              Saving
+            </ng-template>
+            {{message}}
+
+          </td>
+        </tr>
+      </table>
+
+
+
+
+
+
+    </td>
+
+    <td style="vertical-align:top" [style.display]="selectedProposal != null? '': 'none' ">
+
+      <template #placeHolder> </template>
+    </td>
+  </tr>
+</table>

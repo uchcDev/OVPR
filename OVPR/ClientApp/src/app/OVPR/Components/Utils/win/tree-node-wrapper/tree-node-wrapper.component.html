@@ -1,0 +1,5 @@
+<div style="width:inherit; height: inherit;" [style.display]="node.HideContent? 'none': '' "  cdkDropList [id]="node.NodeName"  (cdkDropListDropped)="node.Drop($event)"
+[cdkDropListConnectedTo]="['winA', 'winB', 'winC', 'winD', 'winE', 'winF', 'winG', 'winH']"
+>
+    <template #placeHolder style="width:inherit; height: inherit; "> </template> 
+</div>

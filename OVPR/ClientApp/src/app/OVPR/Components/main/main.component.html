@@ -1,0 +1,53 @@
+<br/>
+
+<a [routerLink]="['/Commitment','']">create new</a> 
+<br/>
+<br/>
+<table class="grid">
+  <tr>
+    <td>Commitment_PK</td>
+    <td>CommitmentDesc</td>
+    <td>PI</td>
+    <td>Campus</td>
+    <td>School</td>
+    <td>Dept</td>
+    <td>Project</td>
+    <td>CommitmentType</td>
+    <td>CommitmentStatus</td>
+    <td>CommitDate</td>
+    <td>InfoEdStatus</td>
+    <td>ProjectTitle</td>
+    <td>CommitmentDate</td>
+    <td>StartingFY</td>
+    <td>NumberOfYears</td>
+    <td>TotalCommitment</td>
+    <td>Paid</td>
+    <td>NotFunded</td>
+    <td>OutstandingBalance</td>
+  </tr>
+  <tr *ngFor="let ent of data ">
+
+
+    <td><a [routerLink]="['/Commitment', ent.Commitment_PK]">{{ent.Commitment_PK}}</a>    
+   
+
+    <td>{{ent.CommitmentDesc}}</td>
+    <td>{{ent.PI}}</td>
+    <td>{{ent.Campus}}</td>
+    <td>{{ent.School}}</td>
+    <td>{{ent.Dept}}</td>
+    <td>{{ent.Project}}</td>
+    <td>{{ent.CommitmentType}}</td>
+    <td>{{ent.CommitmentStatus}}</td>
+    <td>{{ent.CommitDate}}</td>
+    <td>{{ent.InfoEdStatus}}</td>
+    <td>{{ent.ProjectTitle}}</td>
+    <td>{{ent.CommitmentDate}}</td>
+    <td>{{ent.StartingFY}}</td>
+    <td>{{ent.NumberOfYears}}</td>
+    <td>{{ent.TotalCommitment}}</td>
+    <td>{{ent.Paid}}</td>
+    <td>{{ent.NotFunded}}</td>
+    <td>{{ent.OutstandingBalance}}</td>
+  </tr>
+</table>

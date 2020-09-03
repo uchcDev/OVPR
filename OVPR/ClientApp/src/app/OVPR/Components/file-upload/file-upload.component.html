@@ -1,0 +1,22 @@
+<label style="border: 1px ridge black; padding: 5px 10px;font-size: 0.8rem;" for="upload">Browse...</label>
+<input style="opacity: 0" id="upload" name="upload" multiple="true" (change)="onFileChange($event)" type="file">
+<br />
+<br />
+<table class="form" style="width:1%">
+
+  <tr *ngFor="let ent of files">
+    <td>
+
+      <div *ngIf="ent.DocumentPK != null; else elseBlock" (click)="serveFile(ent)"
+        style="cursor:default;text-decoration: underline">
+        {{ent.FileName}}
+      </div>
+      <ng-template #elseBlock>
+        {{ent.FileName}}
+      </ng-template>
+    </td>
+    <td (click)="delete(ent)" style="color:red; cursor:default;">
+      X
+    </td>
+  </tr>
+</table>

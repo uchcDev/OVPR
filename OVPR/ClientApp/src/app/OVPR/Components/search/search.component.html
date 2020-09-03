@@ -1,0 +1,325 @@
+<table class="form" style="width:1%; ">
+  <tr>
+
+    <td style="text-align: left">
+      Campus:
+    </td>
+    <td>
+      Type:
+    </td>
+
+    <td>
+      Status:
+    </td>
+
+    <td>
+      PI:
+    </td>
+
+    <td>
+      School:
+    </td>
+    <td>
+      Comm#:
+    </td>
+    <td>
+        Commit Name:
+    </td>
+    <td>
+      Transaction #:
+    </td>
+
+
+    <td>
+      Info Ed Name:
+    </td>
+    <td>
+      Total Commit:
+    </td>
+    <td>
+      Detail
+    </td>
+    <td>
+
+      </td>
+
+  </tr>
+  <tr>
+
+
+    <td style="vertical-align: top">
+      <select [(ngModel)]="campusValue" selectedIndex="0">
+        <option *ngFor="let ent of campusEnts" value={{ent.CAMPUS_PK_ID}}> {{ent.CAMPUS_Name}}</option>
+      </select>
+    </td>
+
+    <td style="vertical-align: top">
+      <select [(ngModel)]="typeValue" style="width: 100px;">
+        <option value=""> All</option>
+        <option *ngFor="let ent of typeEnts" value={{ent.COMMITTYPE_PK_ID}}> {{ent.COMMITTYPE_Description}}
+        </option>
+      </select>
+    </td>
+
+    <td style="vertical-align: top">
+      <select [(ngModel)]="statusValue">
+        <option value=""> All</option>
+        <option *ngFor="let ent of statusEnts" value={{ent.COMMITSTATUS_PK_ID}}>
+          {{ent.COMMITSTATUS_Description}}
+        </option>
+      </select>
+    </td>
+
+
+
+    <td style="vertical-align: top">
+
+      <table class="thisTable">
+        <tr>
+          <td>
+            <input #comPISearchBox [(ngModel)]="searchPIString" (keyup)="searchPI(comPISearchBox.value)"
+              (change)="searchPI(comPISearchBox.value)" placeholder="filter" style="width: 100px;">
+          </td>
+          <td>
+              :
+          </td>
+         
+          <td>
+            <select [(ngModel)]="piValue">
+              <option value=""> All</option>
+              <option *ngFor="let ent of piData.Data" value={{ent.PI_PK_ID}}> {{ent.PI_DisplayName}}</option>
+            </select>
+          </td>
+          <td>
+            <span *ngIf="piData.WasDataTruncated" matTooltip="Showing first 500"
+              style="color:green; font-size:small; vertical-align: top; white-space: nowrap;">
+              &nbsp;
+              ?
+            </span>
+          </td>
+        </tr>
+      </table>
+
+
+
+
+
+
+
+    </td>
+
+    <td style="vertical-align: top">
+      <select [(ngModel)]="schoolValue" style="width: 100px;">
+        <option value=""> All</option>
+        <option *ngFor="let ent of schoolEnts" value={{ent.SCHOOL_PK_ID}}>
+          {{ent.SCHOOL_Name}}
+        </option>
+      </select>
+
+    </td>
+    <td style="vertical-align: top;">
+      <input type="input" [(ngModel)]="CommitmentIDSearch" (keyup)="IDSearch()" (change)="IDSearch()"
+        style=" width: 50px;">
+    </td>
+
+    <td style="vertical-align: top"> <input type="input" [(ngModel)]="descriptionValue"></td>
+
+    <td style="vertical-align: top"><input type="input" [(ngModel)]="transactionNumberValue" style="width: 100px;"></td>
+
+
+
+    <td style="vertical-align: top"> <input type="input" [(ngModel)]="projectTitleValue"></td>
+    <td style="vertical-align: top"><input type="input" [(ngModel)]="totalCommitmentValue" style="width: 100px;"></td>
+
+
+    <td style="vertical-align: top"><input type="input" [(ngModel)]="detailValue" style="width: 100px;"></td>
+    <td>
+      <input type="submit" (click)="resetSearch()" value="Reload Grid">
+    </td>
+
+  </tr>
+</table>
+
+
+
+
+
+
+
+
+<br />
+
+
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="resultEnts" class="matTableGrid">
+
+    <ng-container matColumnDef="Commitment_PK">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('Commitment_PK', 'number')" >
+        {{sortIcon('Commitment_PK')}}
+        <br />
+       Comm#
+      </th>
+      <td mat-cell *matCellDef="let ent" > {{ent.Commitment_PK}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="PI">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('PI', 'string')">
+        {{sortIcon('PI')}}
+        <br />
+        PI
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.PI}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="School">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('School', 'string')">
+        {{sortIcon('School')}}
+        <br />
+        School
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.School}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Campus">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('Campus', 'string')">
+        {{sortIcon('Campus')}}
+        <br />
+        Campus
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.Campus}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CommitmentDesc">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('CommitmentDesc', 'string')">
+        {{sortIcon('CommitmentDesc')}}
+        <br />
+        Commit Name
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.CommitmentDesc}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Project">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('Project', 'string')">
+        {{sortIcon('Project')}}
+        <br />
+        Project
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.Project}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CommitmentType">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('CommitmentType', 'string')">
+        {{sortIcon('CommitmentType')}}
+        <br />
+        Type
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.CommitmentType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CommitmentStatus">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('CommitmentStatus', 'string')">
+        {{sortIcon('CommitmentStatus')}}
+        <br />
+        Status
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.CommitmentStatus}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="InfoEdStatus">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('InfoEdStatus', 'string')">
+        {{sortIcon('InfoEdStatus')}}
+        <br />
+        Info Ed Status
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.InfoEdStatus}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ProjectTitle">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('ProjectTitle', 'string')">
+        {{sortIcon('ProjectTitle')}}
+        <br />
+        Info Ed Name
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.ProjectTitle}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CommitDate">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('CommitDate', 'date')">
+        {{sortIcon('CommitDate')}}
+        <br />
+        Date
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{  ent.CommitDate | date: 'MM/dd/yy'  }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="StartingFY">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('StartingFY', 'number')">
+        {{sortIcon('StartingFY')}}
+        <br />
+        FY
+      </th>
+      <td mat-cell *matCellDef="let ent"> {{ent.StartingFY}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="NumberOfYears">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('NumberOfYears', 'number')">
+        {{sortIcon('NumberOfYears')}}
+        <br />
+        #Yrs
+      </th>
+      <td mat-cell *matCellDef="let ent" style="text-align:center"> {{ent.NumberOfYears}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="TotalCommitment">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('TotalCommitment', 'number')">
+        {{sortIcon('TotalCommitment')}}
+        <br />
+        Total
+      </th>
+      <td mat-cell *matCellDef="let ent" style="text-align: right;" > {{ent.TotalCommitment | number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Paid">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('Paid', 'number')">
+        {{sortIcon('Paid')}}
+        <br />
+        Paid
+      </th>
+      <td mat-cell *matCellDef="let ent" style="text-align: right;"> {{ent.Paid  | number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="NotFunded">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('NotFunded', 'number')">
+        {{sortIcon('NotFunded')}}
+        <br />
+        Not Funded
+      </th>
+      <td mat-cell *matCellDef="let ent" style="text-align: right;"> {{ent.NotFunded  | number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="OutstandingBalance">
+      <th mat-header-cell *matHeaderCellDef (click)="sort('OutstandingBalance', 'number')">
+        {{sortIcon('OutstandingBalance')}}
+        <br />
+        Balance
+      </th>
+      <td mat-cell *matCellDef="let ent" style="text-align: right;"> {{ent.OutstandingBalance  | number}} </td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class='matTableGridHeader'></tr>
+    <tr mat-row *matRowDef="let ent; columns: displayedColumns" (click)="select(ent)"></tr>
+  </table>
+  <div [style.display]="showLoadAnimation? '': 'none' " class="loader"> </div>
+  <br />
+  Page : <input [(ngModel)]="pageNumber" (keyup)="changePage()" (change)="changePage()"> / {{totalPages}}
+  <input type="submit" value="prev" (click)="changePageIndex(true)">
+  <input type="submit" value="next" (click)="changePageIndex(false)">
+  <br />
+  <br />
+</div>

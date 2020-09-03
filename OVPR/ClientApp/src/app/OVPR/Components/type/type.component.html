@@ -1,0 +1,55 @@
+Type: <select [(ngModel)]="typeDDLValue" (change)="level1Change()">
+  <option value=""> (select 1)</option>
+  <option *ngFor="let ent of level1Ents" value={{ent.COMMITTYPE_PK_ID}}> {{ent.COMMITTYPE_Description}}
+  </option>
+</select>
+
+
+<table class="grid">
+  <tr>
+    <td>
+      ID
+    </td>
+    <td>
+      Description
+    </td>
+    <td>
+      Actions
+    </td>
+  </tr>
+  <tr *ngFor="let ent of level2Ents">
+    <td>
+      {{ent.COMMITTYPE_PK_ID}}
+    </td>
+    <td [ngSwitch]="typeToEdit">
+      <div *ngSwitchCase="ent">
+        <input [(ngModel)]="copyOfTypeToEdit.COMMITTYPE_Description" style="width:90%" />
+        <span style="color:red">
+          {{descriptionErrorMessage}}
+        </span>
+      </div>
+      <div *ngSwitchDefault>
+        {{ent.COMMITTYPE_Description}}
+      </div>
+    </td>
+
+
+
+
+    <td [ngSwitch]="typeToEdit">
+      <div *ngSwitchCase="ent">
+        <input type="submit" value="cancel" (click)="cancel()">
+        <input type="submit" value="save" (click)="save()">
+      </div>
+      <div *ngSwitchDefault>
+        <input type="submit" value="edit" (click)="edit(ent, true)">
+        <input type="submit" value="delete" (click)="delete(ent)">
+      </div>
+    </td>
+  </tr>
+
+</table>
+
+<div *ngIf="typeToEdit == null && typeDDLValue != ''">
+  <input type="submit" value="add" (click)="addInit()">
+</div>
